@@ -1,6 +1,9 @@
 package com.techelevator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 public abstract class Inventory {
     private String name;
@@ -37,4 +40,23 @@ public abstract class Inventory {
         System.out.printf("%s, %s, %s, %s remaining", name, price, message());
         numberOfItems--;
     }
+
+        File inventoryFile = new File("vendingmachine.csv");
+        Scanner fileScanner = new Scanner(inventoryFile);
+        while (fileScanner.hasNextLine()) {
+            String[] vendingItem = fileScanner.nextLine().split("\\|");
+            
+    }
+
+    }
+
+//        try (Scanner fileScanner = new Scanner(inventoryFile)) {
+//            while (fileScanner.hasNextLine()) {
+//                System.out.println(fileScanner.nextLine());
+//            }
+//        }
+//        catch (FileNotFoundException fnf) {
+//            System.out.println("file not found");
+//        }
+
 }
