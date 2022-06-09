@@ -11,22 +11,24 @@ public class VendingMachineCLI {
 		VendingMachineCLI cli = new VendingMachineCLI();
 		cli.run();
 
+
 	}
 
 	public void run() {
-		System.out.println("(1) Display Vending Machine Items\n(2) Purchase\n(3) Exit");
+		System.out.println("(1) Display Vending Machine Item\n(2) Purchase\n(3) Exit");
 
 		Scanner userScanner = new Scanner(System.in);
 		String userChoice = userScanner.nextLine();
 
-		if (userChoice.equals("1")){
-			MainMenu.displayInventoryList();
-		} else if (userChoice.equals("2")){
-			PurchaseMenu.returnToPurchaseMenu();
-			if (userChoice.equals("1")){
-				PurchaseMenu.feedMoney();
-			}
-		}
+
+//		if (userChoice.equals("1")){
+//			MainMenu.displayInventoryList();
+//		} else if (userChoice.equals("2")){
+//			PurchaseMenu.returnToPurchaseMenu();
+//			if (userChoice.equals("1")){
+//				PurchaseMenu.feedMoney();
+//			}
+//		}
 	}
 
 }

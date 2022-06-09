@@ -2,9 +2,9 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
-public class Gum extends Inventory{
-    public Gum(String name, BigDecimal price, String location, int numberOfItems){
-        super(name, price, location, numberOfItems);
+public class Gum extends Item {
+    public Gum(String name, BigDecimal price, String location){
+        super(name, price, location);
     }
 
     @Override
