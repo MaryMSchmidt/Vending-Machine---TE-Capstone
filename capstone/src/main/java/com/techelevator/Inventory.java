@@ -10,17 +10,14 @@ import java.util.Scanner;
 public class Inventory {
 
 
-//    public void dispense() {
-//        System.out.printf("%s, %s, %s, %s remaining", name, price, message());
-//        numberOfItems--;
-//    }
+
     public Inventory(){
 
     }
 //   need to verify that this is working as expected when we arrive on Friday and then we can go from there.
     List<Item> forSale = new ArrayList<>();
     File inventoryFile = new File("vendingmachine.csv");
-    public void setInventory(File inventoryFile) {
+    public void setInventory() {
 
         try (Scanner fileScanner = new Scanner(inventoryFile)) {
             while (fileScanner.hasNextLine()) {

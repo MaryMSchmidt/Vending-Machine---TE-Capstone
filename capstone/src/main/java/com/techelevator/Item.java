@@ -22,9 +22,18 @@ public abstract class Item {
         this.location = location;
         this.numberOfItems = numberOfItems;
     }
+
+
+        public void dispense(BigDecimal newBalance) {
+            numberOfItems--;
+            System.out.printf("%s, %s, %s remaining, %s\n", name, price, newBalance, message());
+        }
+
+
     public int getNumberOfItems() {
         return numberOfItems;
     }
+
     public String getName() {
         return name;
     }

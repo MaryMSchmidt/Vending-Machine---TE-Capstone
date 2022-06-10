@@ -3,13 +3,18 @@ package com.techelevator;
 import java.math.BigDecimal;
 
 public class HandleMoney {
-    private BigDecimal balance;
+
+    private BigDecimal balance = new BigDecimal("0.00");
     private int dimes = 0;
     private int quarters = 0;
     private int nickels = 0;
 
-    public BigDecimal deposit(BigDecimal moneyFeed){
-        return balance.add(moneyFeed);
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public BigDecimal deposit(BigDecimal moneyEntered){
+        return balance.add(moneyEntered);
     }
 
     public BigDecimal sale(BigDecimal price){
