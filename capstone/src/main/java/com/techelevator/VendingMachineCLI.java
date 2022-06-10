@@ -39,15 +39,14 @@ public class VendingMachineCLI {
 				while (true) {
 					System.out.println("(1) Feed Money\n(2) Select Product\n(3) Finish Transaction");
 					String userSelection = userScanner.nextLine();
-					BigDecimal moneyFed = new BigDecimal(0);
-					BigDecimal newBalance = new BigDecimal(0);
+//					BigDecimal moneyFed = new BigDecimal(0);
+					BigDecimal newBalance = new BigDecimal("0.00");
 					if (userSelection.equals("1")) {
 						System.out.println("Enter a whole dollar amount.");
 						String userAmountEntered = userScanner.nextLine();
 						BigDecimal bDUserAmountEntered = new BigDecimal(userAmountEntered);
-						moneyFed = moneyFed.add(bDUserAmountEntered);
-						newBalance = takeMoney.deposit(moneyFed);
-						System.out.printf("Current Money Provided: %s\n", newBalance);
+						takeMoney.deposit(bDUserAmountEntered);
+						System.out.printf("Current Money Provided: %s\n", takeMoney.deposit(bDUserAmountEntered));
 					} else if (userSelection.equals("2")) {
 						for (Item item : sellableItems.forSale) {
 							System.out.printf("%s | %s | %s | items remaining: %s\n", item.getLocation(), item.getName(), item.getPrice(), item.getNumberOfItems());
@@ -56,8 +55,7 @@ public class VendingMachineCLI {
 						String itemChosen = userScanner.nextLine();
 						for (Item item : sellableItems.forSale) {
 							if (item.getLocation().equals(itemChosen)){
-								newBalance = newBalance.subtract(item.getPrice());
-								item.dispense(newBalance);
+								item.dispense(takeMoney.sale(item.getPrice()));
 							}
 						}
 					} else if (userSelection.equals("3")){
