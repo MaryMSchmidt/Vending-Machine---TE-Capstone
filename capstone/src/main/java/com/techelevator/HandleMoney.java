@@ -14,11 +14,13 @@ public class HandleMoney {
     }
 
     public BigDecimal deposit(BigDecimal moneyEntered){
-        return balance.add(moneyEntered);
+         balance = balance.add(moneyEntered);
+         return balance;
     }
 
     public BigDecimal sale(BigDecimal price){
-        return balance.subtract(price);
+        balance = balance.subtract(price);
+        return balance;
     }
 
 //    public BigDecimal makeChange(BigDecimal balance){
