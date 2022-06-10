@@ -1,8 +1,13 @@
 package com.techelevator;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class HandleMoney {
+
 
     private BigDecimal balance = new BigDecimal("0.00");
     private int dimes = 0;
@@ -26,6 +31,7 @@ public class HandleMoney {
     }
 
    public void makeChange(){
+
         while (true){
             if(balance.compareTo(quarter) == 0 || balance.compareTo(quarter) == 1){
                 balance = balance.subtract(quarter);
