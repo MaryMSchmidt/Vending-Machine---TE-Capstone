@@ -121,8 +121,8 @@ public class VendingMachineCLI {
             File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
             FileOutputStream file = new FileOutputStream(transactionLog, true);
             PrintWriter fileWriter = new PrintWriter(file);
-            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss"))+ " FEED MONEY: $" + takeMoney.getBalance() +  " $" + (takeMoney.getBalance().add(bDUserAmountEntered)) + "\n");
             takeMoney.deposit(bDUserAmountEntered);
+            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss"))+ " FEED MONEY: $" + takeMoney.getBalance() +  " $" + (takeMoney.getBalance().add(bDUserAmountEntered)) + "\n");
             fileWriter.close();
         } catch (FileNotFoundException fnf){
             System.out.println("No file to write in");

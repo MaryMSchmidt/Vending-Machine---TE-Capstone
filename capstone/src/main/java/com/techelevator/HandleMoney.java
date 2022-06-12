@@ -13,6 +13,7 @@ public class HandleMoney {
     private int dimes = 0;
     private int quarters = 0;
     private int nickels = 0;
+    BigDecimal minimumAmountEntered = new BigDecimal("1.00");
     BigDecimal quarter = new BigDecimal(".25");
     BigDecimal dime = new BigDecimal(".10");
     BigDecimal nickel  = new BigDecimal(".05");
@@ -20,9 +21,12 @@ public class HandleMoney {
         return balance;
     }
 
-    public BigDecimal deposit(BigDecimal moneyEntered){
-         balance = balance.add(moneyEntered);
-         return balance;
+    public BigDecimal deposit(BigDecimal moneyEntered) {
+        if (moneyEntered.compareTo(minimumAmountEntered) == -1) {
+            System.out.println("Please enter at least $1.00");
+        } else {
+            balance = balance.add(moneyEntered);
+        } return balance;
     }
 
     public BigDecimal sale(BigDecimal price){
