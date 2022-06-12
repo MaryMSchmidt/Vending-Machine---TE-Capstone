@@ -46,6 +46,7 @@ public class HandleMoney {
                 break;
             }
         }
-       System.out.printf("Your change is %s quarter, %s dimes, %s nickels\n", quarters, dimes, nickels);
+
+       System.out.printf("Your change is %s quarters, %s dimes, %s nickels\n", quarters, dimes, nickels);
     }
 }

@@ -6,22 +6,13 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class VendingMachineCLI {
 
     Inventory sellableItems = new Inventory();
-//            sellableItems.setInventory();
     HandleMoney takeMoney = new HandleMoney();
-
-//    try
-//
-//    {
-//        FileOutputStream file = new FileOutputStream(transactionLog);
-//        PrintWriter fileWriter = new PrintWriter(file);
-//    } catch (FileNotFoundException fnf){
-//        System.out.println("No file to write in");
-//    }
 
     public VendingMachineCLI() {
     }
@@ -29,12 +20,9 @@ public class VendingMachineCLI {
     public static void main(String[] args) {
         VendingMachineCLI cli = new VendingMachineCLI();
         cli.run();
-
-
     }
 
     public void run() {
-
 
         sellableItems.setInventory();
         while (true) {
@@ -52,23 +40,23 @@ public class VendingMachineCLI {
                 while (true) {
                     System.out.println("(1) Feed Money\n(2) Select Product\n(3) Finish Transaction");
                     String userSelection = userScanner.nextLine();
-
                     BigDecimal newBalance = new BigDecimal("0.00");
                     if (userSelection.equals("1")) {
                         System.out.println("Enter a whole dollar amount.");
                         String userAmountEntered = userScanner.nextLine();
                         BigDecimal bDUserAmountEntered = new BigDecimal(userAmountEntered);
-                        // enter the writer code line here
-                        takeMoney.deposit(bDUserAmountEntered);
+                        logFeedMoney(bDUserAmountEntered);
                         System.out.printf("Current Money Provided: %s\n", takeMoney.getBalance());
                     } else if (userSelection.equals("2")) {
                         displayItems();
                         System.out.println("Please select item location. ex: A1 ");
                         String itemChosen = userScanner.nextLine();
                         makeSale(itemChosen);
-                    } else {
-                        takeMoney.makeChange();
+                    } else if (userSelection.equals("3")){
+                        logMakeChange();
                         break;
+                    } else {
+                        System.out.println("Please make a valid selection");
                     }
                 }
             }
@@ -105,17 +93,58 @@ public class VendingMachineCLI {
         }
 
         if(item.getPrice().compareTo(takeMoney.getBalance()) == 0 || item.getPrice().compareTo(takeMoney.getBalance()) == -1) {
+            logPurchase(item);
             item.dispense(takeMoney.sale(item.getPrice()));
 
         } else {
             System.out.println("Insufficient funds. Please add more money.");
         }
     }
-    
+
+        public void logMakeChange(){
+
+            try {
+                File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
+                FileOutputStream file = new FileOutputStream(transactionLog, true);
+                PrintWriter fileWriter = new PrintWriter(file);
+                fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " GIVE CHANGE: $" + takeMoney.getBalance() +  " $0.00\n");
+                takeMoney.makeChange();
+                fileWriter.close();
+            } catch (FileNotFoundException fnf){
+                System.out.println("No file to write in");
+            }
+        }
+
+    public void logFeedMoney(BigDecimal bDUserAmountEntered){
+
+        try {
+            File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
+            FileOutputStream file = new FileOutputStream(transactionLog, true);
+            PrintWriter fileWriter = new PrintWriter(file);
+            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss"))+ " FEED MONEY: $" + takeMoney.getBalance() +  " $" + (takeMoney.getBalance().add(bDUserAmountEntered)) + "\n");
+            takeMoney.deposit(bDUserAmountEntered);
+            fileWriter.close();
+        } catch (FileNotFoundException fnf){
+            System.out.println("No file to write in");
+        }
+    }
+
+    public void logPurchase(Item item){
+
+        try {
+            File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
+            FileOutputStream file = new FileOutputStream(transactionLog, true);
+            PrintWriter fileWriter = new PrintWriter(file);
+            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " " + item.getName() +  " " + item.getLocation() + " $" + takeMoney.getBalance() + " $" + (takeMoney.getBalance().subtract(item.getPrice())) + "\n");
+            fileWriter.close();
+        } catch (FileNotFoundException fnf){
+            System.out.println("No file to write in");
+        }
+    }
+    }
 
 
 
 
-}
 
 

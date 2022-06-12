@@ -14,7 +14,6 @@ public class Inventory {
     public Inventory(){
 
     }
-//   need to verify that this is working as expected when we arrive on Friday and then we can go from there.
     List<Item> forSale = new ArrayList<>();
     File inventoryFile = new File("vendingmachine.csv");
     public void setInventory() {
