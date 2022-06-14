@@ -33,12 +33,12 @@ public class LookUpTests {
         Chips newChips = new Chips("Stackers", chipPrice, "A2");
         String a2 = "A2";
         // act
-        Item actual = newMachine.lookup(a2);
+        Item actual = newMachine.lookup("a2");
 
 //        boolean actual = sellableItems.getItems().contains(newChips);
 //        boolean actual = testList.contains() ;
         // assert
-        Assert.assertEquals("Item is valid, should return true", (newChips.getName()), actual.getName());
+        Assert.assertEquals("Item is valid, should return true", newChips, actual);
     }
 }
 
