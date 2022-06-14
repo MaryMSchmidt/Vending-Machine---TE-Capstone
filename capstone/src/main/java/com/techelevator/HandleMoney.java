@@ -30,8 +30,12 @@ public class HandleMoney {
     }
 
     public BigDecimal sale(BigDecimal price){
-        balance = balance.subtract(price);
-        return balance;
+        if(price.compareTo(balance) == 1){
+            System.out.println("Insufficient money deposited");
+        } else {
+            balance = balance.subtract(price);
+
+        }return balance;
     }
 
    public void makeChange(){
