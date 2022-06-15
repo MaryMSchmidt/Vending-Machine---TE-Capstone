@@ -44,9 +44,16 @@ public class VendingMachineCLI {
                     if (userSelection.equals("1")) {
                         System.out.println("Enter a whole dollar amount.");
                         String userAmountEntered = userScanner.nextLine();
-                        BigDecimal bDUserAmountEntered = new BigDecimal(userAmountEntered);
-                        logFeedMoney(bDUserAmountEntered);
-                        System.out.printf("Current Money Provided: %s\n", takeMoney.getBalance());
+
+                        try {
+                            BigDecimal bDUserAmountEntered = new BigDecimal(userAmountEntered);
+                            logFeedMoney(bDUserAmountEntered);
+                            System.out.printf("Current Money Provided: %s\n", takeMoney.getBalance());
+                        }
+                        catch (NumberFormatException nfe){
+                            System.out.println("That was not a number");
+                        }
+
                     } else if (userSelection.equals("2")) {
                         displayItems();
                         System.out.println("Please select item location. ex: A1 ");
