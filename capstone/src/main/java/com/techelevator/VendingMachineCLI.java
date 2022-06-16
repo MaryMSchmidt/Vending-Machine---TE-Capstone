@@ -48,9 +48,8 @@ public class VendingMachineCLI {
                         try {
                             BigDecimal bDUserAmountEntered = new BigDecimal(userAmountEntered);
                             logFeedMoney(bDUserAmountEntered);
-                            System.out.printf("Current Money Provided: %s\n", takeMoney.getBalance());
-                        }
-                        catch (NumberFormatException nfe){
+                            System.out.printf("Current Money Provided: $%s\n", takeMoney.getBalance());
+                        } catch (NumberFormatException nfe) {
                             System.out.println("That was not a number");
                         }
 
@@ -59,19 +58,19 @@ public class VendingMachineCLI {
                         System.out.println("Please select item location. ex: A1 ");
                         String itemChosen = userScanner.nextLine();
                         makeSale(itemChosen);
-                    } else if (userSelection.equals("3")){
+                    } else if (userSelection.equals("3")) {
                         logMakeChange();
                         break;
                     } else {
                         System.out.println("Please make a valid selection");
                     }
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
     }
+
     public void displayItems() {
         for (Item item : sellableItems.forSale) {
             System.out.printf("%s | %s | %s | items remaining: %s\n", item.getLocation(), item.getName(), item.getPrice(), item.getNumberOfItems());
@@ -79,7 +78,7 @@ public class VendingMachineCLI {
     }
 
     public Item lookup(String itemChosen) {
-        for(Item item : sellableItems.getItems()) {
+        for (Item item : sellableItems.getItems()) {
             if (item.getLocation().equalsIgnoreCase(itemChosen)) {
                 return item;
             }
@@ -99,7 +98,7 @@ public class VendingMachineCLI {
             return;
         }
 
-        if(item.getPrice().compareTo(takeMoney.getBalance()) == 0 || item.getPrice().compareTo(takeMoney.getBalance()) == -1) {
+        if (item.getPrice().compareTo(takeMoney.getBalance()) == 0 || item.getPrice().compareTo(takeMoney.getBalance()) == -1) {
             logPurchase(item);
             item.dispense(takeMoney.sale(item.getPrice()));
 
@@ -108,47 +107,47 @@ public class VendingMachineCLI {
         }
     }
 
-        public void logMakeChange(){
+    public void logMakeChange() {
 
-            try {
-                File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
-                FileOutputStream file = new FileOutputStream(transactionLog, true);
-                PrintWriter fileWriter = new PrintWriter(file);
-                fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " GIVE CHANGE: $" + takeMoney.getBalance() +  " $0.00\n");
-                takeMoney.makeChange();
-                fileWriter.close();
-            } catch (FileNotFoundException fnf){
-                System.out.println("No file to write in");
-            }
+        try {
+            File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
+            FileOutputStream file = new FileOutputStream(transactionLog, true);
+            PrintWriter fileWriter = new PrintWriter(file);
+            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " GIVE CHANGE: $" + takeMoney.getBalance() + " $0.00\n");
+            takeMoney.makeChange();
+            fileWriter.close();
+        } catch (FileNotFoundException fnf) {
+            System.out.println("No file to write in");
         }
+    }
 
-    public void logFeedMoney(BigDecimal bDUserAmountEntered){
+    public void logFeedMoney(BigDecimal bDUserAmountEntered) {
 
         try {
             File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
             FileOutputStream file = new FileOutputStream(transactionLog, true);
             PrintWriter fileWriter = new PrintWriter(file);
             takeMoney.deposit(bDUserAmountEntered);
-            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss"))+ " FEED MONEY: $" + bDUserAmountEntered +  ".00 $" + (takeMoney.getBalance()) + "\n");
+            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " FEED MONEY: $" + bDUserAmountEntered + ".00 $" + (takeMoney.getBalance()) + "\n");
             fileWriter.close();
-        } catch (FileNotFoundException fnf){
+        } catch (FileNotFoundException fnf) {
             System.out.println("No file to write in");
         }
     }
 
-    public void logPurchase(Item item){
+    public void logPurchase(Item item) {
 
         try {
             File transactionLog = new File("C:\\Users\\Student\\workspace\\capstone-1-team-06\\capstone\\src\\main\\java\\com\\techelevator\\Log.txt");
             FileOutputStream file = new FileOutputStream(transactionLog, true);
             PrintWriter fileWriter = new PrintWriter(file);
-            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " " + item.getName() +  " " + item.getLocation() + " $" + takeMoney.getBalance() + " $" + (takeMoney.getBalance().subtract(item.getPrice())) + "\n");
+            fileWriter.printf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")) + " " + item.getName() + " " + item.getLocation() + " $" + takeMoney.getBalance() + " $" + (takeMoney.getBalance().subtract(item.getPrice())) + "\n");
             fileWriter.close();
-        } catch (FileNotFoundException fnf){
+        } catch (FileNotFoundException fnf) {
             System.out.println("No file to write in");
         }
     }
-    }
+}
 
 
 

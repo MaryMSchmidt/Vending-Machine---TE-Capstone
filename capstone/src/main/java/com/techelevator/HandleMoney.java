@@ -17,6 +17,7 @@ public class HandleMoney {
     BigDecimal quarter = new BigDecimal(".25");
     BigDecimal dime = new BigDecimal(".10");
     BigDecimal nickel  = new BigDecimal(".05");
+
     public BigDecimal getBalance() {
         return balance;
     }
